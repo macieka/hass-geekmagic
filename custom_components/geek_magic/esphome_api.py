@@ -116,20 +116,7 @@ class GeekMagicESPHomeClient:
                 # Note: This assumes the ESPHome device has a custom service defined
                 # to receive and display line data
                 await self._client.execute_service(
-                    aioesphomeapi.UserService(
-                        name="display_image_line",
-                        key=0,  # Will be updated after discovering services
-                        args=[
-                            aioesphomeapi.UserServiceArg(
-                                name="line_number",
-                                type=aioesphomeapi.UserServiceArgType.INT
-                            ),
-                            aioesphomeapi.UserServiceArg(
-                                name="line_data",
-                                type=aioesphomeapi.UserServiceArgType.STRING
-                            )
-                        ]
-                    ),
+                    service="display_image_line",
                     data={
                         "line_number": line_num,
                         "line_data": line_base64
@@ -150,11 +137,7 @@ class GeekMagicESPHomeClient:
         try:
             # Call the clear_display service on the ESPHome device
             await self._client.execute_service(
-                aioesphomeapi.UserService(
-                    name="clear_display",
-                    key=0,  # Will be updated after discovering services
-                    args=[]
-                ),
+                service="clear_display",
                 data={}
             )
             _LOGGER.info("Display cleared successfully")
@@ -177,16 +160,7 @@ class GeekMagicESPHomeClient:
         try:
             # Call the set_brightness service on the ESPHome device
             await self._client.execute_service(
-                aioesphomeapi.UserService(
-                    name="set_brightness",
-                    key=0,  # Will be updated after discovering services
-                    args=[
-                        aioesphomeapi.UserServiceArg(
-                            name="brightness",
-                            type=aioesphomeapi.UserServiceArgType.INT
-                        )
-                    ]
-                ),
+                service="set_brightness",
                 data={"brightness": value}
             )
             _LOGGER.info("Brightness set to %d", value)
