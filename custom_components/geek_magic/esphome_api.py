@@ -1,5 +1,27 @@
-"""ESPHome API Client for Geek Magic."""
-import asyncio
+"""ESPHome API Client for Geek Magic.
+
+This client requires the following custom services to be defined in the ESPHome YAML configuration:
+
+api:
+  services:
+    - service: display_image_line
+      variables:
+        line_number: int
+        line_data: string
+      then:
+        # Implementation to receive and display RGB565 line data (base64 encoded)
+        # Line size: 480 bytes (240 pixels * 2 bytes per pixel RGB565)
+        
+    - service: clear_display
+      then:
+        # Implementation to clear the display
+        
+    - service: set_brightness
+      variables:
+        brightness: int  # 0-100
+      then:
+        # Implementation to set backlight brightness
+"""
 import base64
 import logging
 from typing import Optional
